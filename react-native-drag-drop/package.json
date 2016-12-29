@@ -1,0 +1,84 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "react-native-drag-drop",
+        "scope": null,
+        "escapedName": "react-native-drag-drop",
+        "name": "react-native-drag-drop",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/home/matt/Surya/Matt/Projects/DragAndDrop"
+    ]
+  ],
+  "_from": "react-native-drag-drop@latest",
+  "_id": "react-native-drag-drop@0.1.0",
+  "_inCache": true,
+  "_location": "/react-native-drag-drop",
+  "_nodeVersion": "4.0.0",
+  "_npmUser": {
+    "name": "kriskelly",
+    "email": "kristopherbkelly@gmail.com"
+  },
+  "_npmVersion": "2.14.2",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "react-native-drag-drop",
+    "scope": null,
+    "escapedName": "react-native-drag-drop",
+    "name": "react-native-drag-drop",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-drag-drop/-/react-native-drag-drop-0.1.0.tgz",
+  "_shasum": "16bb43de03b94e7d83070d92d712aaa9992ebf87",
+  "_shrinkwrap": null,
+  "_spec": "react-native-drag-drop",
+  "_where": "/home/matt/Surya/Matt/Projects/DragAndDrop",
+  "author": {
+    "name": "Kris Kelly"
+  },
+  "dependencies": {
+    "invariant": "^2.2.0"
+  },
+  "description": "Drag and drop higher-order components for React Native.",
+  "devDependencies": {
+    "babel": "^5.8.34",
+    "chai": "^3.4.1",
+    "mocha": "^2.3.3",
+    "proxyquire": "^1.7.3",
+    "react": "^0.14.3",
+    "react-addons-test-utils": "^0.14.3",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0",
+    "skin-deep": "^0.13.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "16bb43de03b94e7d83070d92d712aaa9992ebf87",
+    "tarball": "https://registry.npmjs.org/react-native-drag-drop/-/react-native-drag-drop-0.1.0.tgz"
+  },
+  "gitHead": "3f95a3d29444ed7c473cafe12430803276733c8f",
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "kriskelly",
+      "email": "kristopherbkelly@gmail.com"
+    }
+  ],
+  "name": "react-native-drag-drop",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha --compilers js:babel/register --require ./test/test_helper.js --recursive"
+  },
+  "version": "0.1.0"
+}
