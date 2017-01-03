@@ -11,7 +11,7 @@ const {
 } = ReactNative;
 
 import invariant from 'invariant';
-import { DragContext } from './DragContext';
+import { DragContext, createDragContext } from './DragContext';
 import { createDragPanResponder } from './DragPanResponder';
 import type { DragItem } from './DragContext';
 
@@ -37,9 +37,12 @@ export function createDragArena(
   dragContext: DragContext,
   panDirection: string
 ): ReactClass {
-  // invariant(panDirection === 'x' ||
-  //           panDirection === 'y', 'Pan direction must be vertical (y) or horizontal (x)');
-
+  dragContext = createDragContext((props, state) => {
+      // const dragItem = state.dragItem; // This should probably be passed as the 1st arg to onDrop.
+      // console.log('This is the onDrop callback. You just dropped a thing!', dragItem);
+      // Must return a promise.
+      return Promise.resolve();
+  })
   class DragArena extends (React.Component : typeof ReactComponent) {
     props: Props;
     state: State;
@@ -98,7 +101,6 @@ export function createDragArena(
         });
         const onStop = () => {
           return dragContext.drop(this.props, this.state).then(() => {
-            this.refs.abc.ondrop(this.props, this.state);
             this.stopDrag();
           });
         }
@@ -111,7 +113,7 @@ export function createDragArena(
 
 
     watchPanChanges(pos: Position) {
-      const dropZoneName = dragContext.getDropZoneFromYOffset(pos.y);
+      const dropZoneName = dragContext.getDropZoneFromYOffset(pos.y, pos.x);
 
       if (dropZoneName) {
         const edge = dragContext.getDropZoneEdge(pos, dropZoneName);
@@ -126,6 +128,11 @@ export function createDragArena(
             currentDropZone: dropZoneName,
           });
         }
+      } else {
+        this.setState({
+            currentDropZone: null,
+            currentDropZoneEdge: null
+          });
       }
     }
 
@@ -138,6 +145,7 @@ export function createDragArena(
      * This also removes the pan listener.
      */
     stopDrag() {
+      this.refs.abc.ondrop(this.props, this.state);
       this.setState((state) => {
         state.currentDropZone = null;
         state.dragItem = null;
@@ -160,7 +168,6 @@ export function createDragArena(
 
       let dragShadow;
       let panHandlers;
-
       if (dragItem && pan) {
         dragShadow = (
           <DragShadowComponent
@@ -186,7 +193,7 @@ export function createDragArena(
             dragItem={dragItem}
             currentDropZone={currentDropZone}
             currentDropZoneEdge={currentDropZoneEdge}
-            onDropState={this.state}
+            stopDrag={this.stopDrag.bind(this)}
             ref = "abc"
             {...this.props} />
           {dragShadow}

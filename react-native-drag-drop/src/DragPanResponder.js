@@ -16,23 +16,28 @@ import type { State } from './DragArena';
 
 function setBounds(bounds, tracker, direction) {
   return (e, gestureState) => {
-    // if (direction === 'y') {
-      const aboveTop = gestureState.moveY < bounds.y;
-      const belowBottom = gestureState.moveY > (bounds.y + bounds.height);
-      const movingDownward = gestureState.vy > 0;
-      const movingUpward = gestureState.vy < 0;
-    //   if ((!aboveTop || movingDownward) && (!belowBottom || movingUpward)) {
-    //     return tracker(e, gestureState);
-    //   }
-    // } else if (direction === 'x') {
-      const beyondLeft = gestureState.moveX < bounds.x;
-      const beyondRight = gestureState.moveX > (bounds.x + bounds.width);
-      const movingLeft = gestureState.vx < 0;
-      const movingRight = gestureState.vx > 0;
+    const aboveTop = gestureState.moveY < bounds.y;
+    const belowBottom = gestureState.moveY > (bounds.y + bounds.height);
+    const movingDownward = gestureState.vy > 0;
+    const movingUpward = gestureState.vy < 0;
+    const beyondLeft = gestureState.moveX < bounds.x;
+    const beyondRight = gestureState.moveX > (bounds.x + bounds.width);
+    const movingLeft = gestureState.vx < 0;
+    const movingRight = gestureState.vx > 0;
+    console.log(direction);
+    if (direction === 'y') {
+      if ((!aboveTop || movingDownward) && (!belowBottom || movingUpward)) {
+        return tracker(e, gestureState);
+      }
+    } else if (direction === 'x') {
+      if ((!beyondLeft || movingRight) && (!beyondRight || movingLeft)) {
+        return tracker(e, gestureState);
+      }
+    } else {
       if ((!beyondLeft || movingRight) && (!beyondRight || movingLeft) && (!aboveTop || movingDownward) && (!belowBottom || movingUpward)) {
         return tracker(e, gestureState);
       }
-    // }
+    }
   };
 }
 
@@ -51,17 +56,26 @@ function createOnPanResponderMove(
   panDirection: string
 ) {
   let trackerArgs;
-  // if (panDirection === 'y') {
-  //   trackerArgs = [
-  //     null,
-  //     {dy: pan.y}
-  //   ];
-  // } else {
-  //   trackerArgs = [
-  //     null,
-  //     {dx: pan.x, dy: pan.y}
-  //   ];
-  // }
+  console.info('dd', panDirection);
+  if (panDirection === 'y') {
+    trackerArgs = [
+      null,
+      {dy: pan.y}
+    ];
+  } else if (panDirection === 'x') {
+    trackerArgs = [
+      null,
+      {dx: pan.x}
+    ];
+  } else {
+    trackerArgs = [
+      null,
+      {
+        dx: pan.x,
+        dy: pan.y
+      }
+    ];
+  }
   trackerArgs = [
       null,
       {dx: pan.x, dy: pan.y}

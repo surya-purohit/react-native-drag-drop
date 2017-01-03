@@ -16,23 +16,13 @@
   "_from": "react-native-drag-drop@latest",
   "_id": "react-native-drag-drop@0.1.0",
   "_inCache": true,
-  "_location": "/react-native-drag-drop",
   "_nodeVersion": "4.0.0",
   "_npmUser": {
-    "name": "kriskelly",
-    "email": "kristopherbkelly@gmail.com"
+    "name": "Surya",
+    "email": "er.suryapurohit@gmail.com"
   },
   "_npmVersion": "2.14.2",
   "_phantomChildren": {},
-  "_requested": {
-    "raw": "react-native-drag-drop",
-    "scope": null,
-    "escapedName": "react-native-drag-drop",
-    "name": "react-native-drag-drop",
-    "rawSpec": "",
-    "spec": "latest",
-    "type": "tag"
-  },
   "_requiredBy": [
     "#USER",
     "/"
@@ -40,10 +30,9 @@
   "_resolved": "https://registry.npmjs.org/react-native-drag-drop/-/react-native-drag-drop-0.1.0.tgz",
   "_shasum": "16bb43de03b94e7d83070d92d712aaa9992ebf87",
   "_shrinkwrap": null,
-  "_spec": "react-native-drag-drop",
   "_where": "/home/matt/Surya/Matt/Projects/DragAndDrop",
   "author": {
-    "name": "Kris Kelly"
+    "name": "Surya"
   },
   "dependencies": {
     "invariant": "^2.2.0"
@@ -70,8 +59,8 @@
   "main": "index.js",
   "maintainers": [
     {
-      "name": "kriskelly",
-      "email": "kristopherbkelly@gmail.com"
+      "name": "Surya",
+      "email": "er.suryapurohit@gmail.com"
     }
   ],
   "name": "react-native-drag-drop",

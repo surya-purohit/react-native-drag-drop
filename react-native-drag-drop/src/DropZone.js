@@ -5,7 +5,7 @@
 import React, { PropTypes } from 'react';
 import ReactNative from 'react-native';
 const {
-  View
+	View
 } = ReactNative;
 
 import invariant from 'invariant';
@@ -34,61 +34,62 @@ import { NativeLayoutEvent, SyntheticNativeEvent } from './types';
  * @return ReactClass
  */
 export function createDropZone(Component: ReactClass, dropZoneName: string): ReactClass {
-  invariant(dropZoneName, 'Drop zone name must be set!');
+	invariant(dropZoneName, 'Drop zone name must be set!');
 
-  class DropZone extends (React.Component : typeof ReactComponent) {
+	class DropZone extends (React.Component : typeof ReactComponent) {
 
-    context: {
-      dragContext: DragContext
-    };
+		context: {
+			dragContext: DragContext
+		};
 
-    componentWillMount() {
-      invariant(
-        this.context && this.context.dragContext,
-        'Context not configured correctly!'
-      );
-      // Initialize drop zone here.
-      this.context.dragContext.initDropZone(dropZoneName);
-    }
+		componentWillMount() {
+			invariant(
+				this.context && this.context.dragContext,
+				'Context not configured correctly!'
+			);
+			// Initialize drop zone here.
+			this.context.dragContext.initDropZone(dropZoneName);
+		}
 
-    handleDragItemLayout(dragItem: any, e: NativeLayoutEvent) {
-      this.context.dragContext.setDragItemLayout(
-        dropZoneName,
-        dragItem,
-        e.nativeEvent.layout
-      );
-    }
+		handleDragItemLayout(dragItem: any, e: NativeLayoutEvent) {
+			// console.log('handleDragItemLayouthandleDragItemLayout', e.nativeEvent.layout);
+			this.context.dragContext.setDragItemLayout(
+				dropZoneName,
+				dragItem,
+				e.nativeEvent.layout
+			);
+		}
 
-    handleLayout(e: NativeLayoutEvent) {
-      this.context.dragContext.setLayout(
-        dropZoneName,
-        e.nativeEvent.layout
-      );
-    }
+		handleLayout(e: NativeLayoutEvent) {
+			this.context.dragContext.setLayout(
+				dropZoneName,
+				e.nativeEvent.layout
+			);
+		}
 
-    handleScroll(e: SyntheticNativeEvent) {
-      this.context.dragContext.setContentOffset(
-        dropZoneName,
-        e.nativeEvent.contentOffset
-      );
-    }
+		handleScroll(e: SyntheticNativeEvent) {
+			this.context.dragContext.setContentOffset(
+				dropZoneName,
+				e.nativeEvent.contentOffset
+			);
+		}
 
-    render() {
-      return (
-        <View onLayout={this.handleLayout.bind(this)}>
-          <Component
-            {...this.props}
-            dropZoneName={dropZoneName}
-            onScroll={this.handleScroll.bind(this)}
-            onDragItemLayout={this.handleDragItemLayout.bind(this)} />
-        </View>
-      );
-    }
-  }
+		render() {
+			return (
+				<View style = {{flex: 1}} onLayout={this.handleLayout.bind(this)}>
+					<Component
+						{...this.props}
+						dropZoneName={dropZoneName}
+						onScroll={this.handleScroll.bind(this)}
+						onDragItemLayout={this.handleDragItemLayout.bind(this)} />
+				</View>
+			);
+		}
+	}
 
-  DropZone.contextTypes = {
-    dragContext: PropTypes.instanceOf(DragContext).isRequired,
-  };
+	DropZone.contextTypes = {
+		dragContext: PropTypes.instanceOf(DragContext).isRequired,
+	};
 
-  return DropZone;
+	return DropZone;
 }
