@@ -113,7 +113,7 @@ export function createDragArena(
 
 
     watchPanChanges(pos: Position) {
-      const dropZoneName = dragContext.getDropZoneFromYOffset(pos.y, pos.x);
+      const dropZoneName = dragContext.getDropZoneFromYOffset(pos.y, pos.x, this.props.gameId);
 
       if (dropZoneName) {
         const edge = dragContext.getDropZoneEdge(pos, dropZoneName);
@@ -145,7 +145,7 @@ export function createDragArena(
      * This also removes the pan listener.
      */
     stopDrag() {
-      this.refs.abc.ondrop(this.props, this.state);
+      this.refs[this.props.gameId].ondrop(this.props, this.state);
       this.setState((state) => {
         state.currentDropZone = null;
         state.dragItem = null;
@@ -194,7 +194,7 @@ export function createDragArena(
             currentDropZone={currentDropZone}
             currentDropZoneEdge={currentDropZoneEdge}
             stopDrag={this.stopDrag.bind(this)}
-            ref = "abc"
+            ref = {this.props.gameId}
             {...this.props} />
           {dragShadow}
         </View>

@@ -24,7 +24,6 @@ function setBounds(bounds, tracker, direction) {
     const beyondRight = gestureState.moveX > (bounds.x + bounds.width);
     const movingLeft = gestureState.vx < 0;
     const movingRight = gestureState.vx > 0;
-    console.log(direction);
     if (direction === 'y') {
       if ((!aboveTop || movingDownward) && (!belowBottom || movingUpward)) {
         return tracker(e, gestureState);
@@ -56,7 +55,6 @@ function createOnPanResponderMove(
   panDirection: string
 ) {
   let trackerArgs;
-  console.info('dd', panDirection);
   if (panDirection === 'y') {
     trackerArgs = [
       null,

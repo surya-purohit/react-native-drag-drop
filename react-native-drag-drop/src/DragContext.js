@@ -103,30 +103,32 @@ export class DragContext {
 		return offset;
 	}
 
-	getDropZoneFromYOffset(y: number, x: number): ?DropZoneName {
+	getDropZoneFromYOffset(y: number, x: number, gameId: string): ?DropZoneName {
 		// Naive implementation.
 		// This assumes that the drop zones are ever only
 		// stacked vertically and non-overlapping.
-
+		// console.log("this.dropZones", this.dropZones);
 		for (let dropZone of this.dropZones.values()) {
 			const top = dropZone.layout.y;
 			const bottom = top + dropZone.layout.height;
 			const left = dropZone.layout.x;
 			const right = left + dropZone.layout.width;
-			if ((y + 30) >= top && (y + 30) <= bottom) {
+			if ((y + 30) >= top && (y + 30) <= bottom && dropZone.gameId === gameId) {
+				console.log("dropZone.namedropZone.namedropZone.namedropZone.name", dropZone.name)
 				return dropZone.name;
 			}
 		}
 		return null;
 	}
 
-	initDropZone(dropZoneName: DropZoneName) {
+	initDropZone(dropZoneName: DropZoneName, gameId: string) {
 		this.dropZones.set(
 			dropZoneName,
 			{
 				name: dropZoneName,
 				layout: {x: 0, y: 0, width: 0, height: 0},
 				contentOffset: {x: 0, y: 0},
+				gameId: gameId
 			}
 		);
 	}

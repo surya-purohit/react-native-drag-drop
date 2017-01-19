@@ -33,7 +33,7 @@ import { NativeLayoutEvent, SyntheticNativeEvent } from './types';
  * @param  string name
  * @return ReactClass
  */
-export function createDropZone(Component: ReactClass, dropZoneName: string): ReactClass {
+export function createDropZone(Component: ReactClass, dropZoneName: string, gameId: string): ReactClass {
 	invariant(dropZoneName, 'Drop zone name must be set!');
 
 	class DropZone extends (React.Component : typeof ReactComponent) {
@@ -48,7 +48,7 @@ export function createDropZone(Component: ReactClass, dropZoneName: string): Rea
 				'Context not configured correctly!'
 			);
 			// Initialize drop zone here.
-			this.context.dragContext.initDropZone(dropZoneName);
+			this.context.dragContext.initDropZone(dropZoneName, gameId);
 		}
 
 		handleDragItemLayout(dragItem: any, e: NativeLayoutEvent) {

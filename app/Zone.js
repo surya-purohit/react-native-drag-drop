@@ -17,28 +17,35 @@ class DraggableThing extends Component {
 		super(props);
 		this.panResponder = PanResponder.create({
 			onStartShouldSetPanResponder : () => {
+				// to set the scrollView of Swiper to false
+				// props.setScrollForSwiper(false);
 				if(this.props.item) {
 					this.props.ondrop(null, {dragItem: this.props.item, "currentDropZone": this.props.data.zoneName});
 					this.props.onLongPress();
 					return true;
 				}
+				return false;
 			},
 			onPanResponderRelease: (e,g) => {
 				if(this.props.item) {
-					this.props.stopDrag();
+					return this.props.stopDrag();
 				}
+				return false;
+				// to set the scrollView of Swiper to true
+				// props.setScrollForSwiper(true);
 			}
 		});
 	}
 
 	render() {
-		const { onLayout, onLongPress, item } = this.props;
+		const { onLayout, onLongPress, item, setScrollForSwiper } = this.props;
+		let image_id = (item && item.id) ? item.id.split("-")[0] : "";
 		return (
 			<View
 				style={styles.draggableThing}
 				onLayout={onLayout}
 				{...this.panResponder.panHandlers} >
-				{item ? (<Image style={{flex: 1, borderRadius: 10, resizeMode: "contain"}} source={cardImages[item.id]} />) : null}
+				{item ? (<Image style={{flex: 1, borderRadius: 10, resizeMode: "contain"}} source={cardImages[image_id]} />) : null}
 			</View>
 		);
 	}
@@ -56,7 +63,8 @@ export default class Zone extends Component {
 			scrollEnabled,
 			dragItem,
 			ondrop,
-			stopDrag
+			stopDrag,
+			setScrollForSwiper
 		} = this.props;
 
 		let arry = Array.apply(null, Array(data.length)).map(function (x, i) { return i; });
@@ -69,7 +77,7 @@ export default class Zone extends Component {
 								onLayout={(e) => onDragItemLayout(data.item[j], e)}
 								onLongPress={() => startDragHandler(data.item[j])}
 								item={data.item[j]} key={j} ondrop={ondrop}
-								data={data} stopDrag={stopDrag}>
+								data={data} stopDrag={stopDrag} setScrollForSwiper={setScrollForSwiper}>
 							</DraggableThing>
 						);
 					})
@@ -91,7 +99,7 @@ const styles = StyleSheet.create({
 		borderColor: 'darkgrey',
 		borderWidth: 1,
 		borderRadius: 2,
-		margin: 10,
+		margin: 10
 	},
 	draggableThingChild: {
 		flex: 1
@@ -104,10 +112,9 @@ const styles = StyleSheet.create({
 		backgroundColor: 'red',
 	},
 	blueDropZone: {
-		margin: 10,
 		flex: 1,
 		flexDirection: "row",
 		alignItems: "center",
-		justifyContent: "center",
+		justifyContent: "center"
 	},
 });
